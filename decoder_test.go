@@ -1125,7 +1125,7 @@ func TestDecodeToTypedField(t *testing.T) {
 	}
 }
 
-// issue 37
+
 func TestRegisterConverter(t *testing.T) {
 	type Aa int
 	type Bb int
@@ -1146,5 +1146,20 @@ func TestRegisterConverter(t *testing.T) {
 	}
 	if s1.Bb != Bb(2) {
 		t.Errorf("s1.Bb: expected %v, got %v", 2, s1.Bb)
+}
+
+// issue 24
+func TestDecodeToMaps(t *testing.T) {
+	type S struct {
+		F map[string]int
+	}
+	s := &S{}
+	v := map[string][]string{"F.A": {"1"}, "F.B": {"2"}}
+	NewDecoder().Decode(s, v)
+	if s.F["A"] != 1 {
+		t.Errorf("s[\"A\"]: expected %v, got %v", 1, s.F["A"])
+	}
+	if s.F["B"] != 2 {
+		t.Errorf("s[\"B\"]: expected %v, got %v", 2, s.F["B"])
 	}
 }
