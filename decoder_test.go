@@ -1124,3 +1124,19 @@ func TestDecodeToTypedField(t *testing.T) {
 		t.Errorf("s1: expected %v, got %v", true, s1.Aa)
 	}
 }
+
+// issue 24
+func TestDecodeToMaps(t *testing.T) {
+	type S struct {
+		F map[string]int
+	}
+	s := &S{}
+	v := map[string][]string{"F.A": {"1"}, "F.B": {"2"}}
+	NewDecoder().Decode(s, v)
+	if s.F["A"] != 1 {
+		t.Errorf("s[\"A\"]: expected %v, got %v", 1, s.F["A"])
+	}
+	if s.F["B"] != 2 {
+		t.Errorf("s[\"B\"]: expected %v, got %v", 2, s.F["B"])
+	}
+}
