@@ -1125,7 +1125,6 @@ func TestDecodeToTypedField(t *testing.T) {
 	}
 }
 
-
 func TestRegisterConverter(t *testing.T) {
 	type Aa int
 	type Bb int
@@ -1147,6 +1146,7 @@ func TestRegisterConverter(t *testing.T) {
 	if s1.Bb != Bb(2) {
 		t.Errorf("s1.Bb: expected %v, got %v", 2, s1.Bb)
 }
+
 
 // issue 24
 func TestDecodeToMaps(t *testing.T) {
